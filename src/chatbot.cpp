@@ -37,13 +37,43 @@ ChatBot::~ChatBot()
     // deallocate heap memory
     if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
     {
+        //std::cout<<"image is not null"<<std::endl;
         delete _image;
+        //std::cout<<"!image is deleted"<<std::endl;
         _image = NULL;
+        //std::cout<<"delete image chatbot.cpp 42"<<std::endl;
     }
 }
 
 //// STUDENT CODE
 ////
+ChatBot::ChatBot(const ChatBot& other){
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+    // Copy data handles
+    _image = other._image;
+    _chatLogic = other._chatLogic;
+    _rootNode = other._rootNode;
+}
+
+ChatBot::ChatBot(ChatBot&& other)noexcept{
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    // ?
+    std::exchange(other._image, nullptr);
+    std::exchange(other._chatLogic, nullptr);
+    std::exchange(other._rootNode, nullptr);
+}
+
+ChatBot &ChatBot::operator=(const ChatBot& other){
+    std::cout << "ChatBot Copy Assignment Operator" << std::endl;
+    return *this = ChatBot(other);
+}
+
+ChatBot &ChatBot::operator=(ChatBot&& other)noexcept{
+        std::cout << "ChatBot Move Assignment Operator" << std::endl;
+        std::swap(_image, other._image);
+        std::swap(_chatLogic, other._chatLogic);
+        std::swap(_rootNode, other._rootNode);
+        return *this;};
 
 ////
 //// EOF STUDENT CODE
