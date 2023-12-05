@@ -137,7 +137,7 @@ ChatBotPanelDialog::~ChatBotPanelDialog()
     ////
 
     //delete _chatLogic;
-    _chatLogic.get_deleter();
+    //_chatLogic.get_deleter();
     //_chatLogic = NULL;
 
     ////

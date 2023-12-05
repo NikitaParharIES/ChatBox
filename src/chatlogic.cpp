@@ -18,10 +18,11 @@ ChatLogic::ChatLogic()
     ////
 
     // create instance of chatbot
-    _chatBot = new ChatBot("../images/chatbot.png");
+    //new allocates to heap not stack
+    //_chatBot = new ChatBot("../images/chatbot.png");
 
     // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
-    _chatBot->SetChatLogicHandle(this);
+    //_chatBot->SetChatLogicHandle(this);
 
     ////
     //// EOF STUDENT CODE
@@ -220,11 +221,18 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
             }
         }
     }
-
+    //new variable
+    //"this" is used to access the class ChatLogic as an instance via chatLogic
+    ChatBot chatBot("../images/chatbot.png") ;
     // add chatbot to graph root node
     _chatBot->SetRootNode(rootNode);
-    rootNode->MoveChatbotHere(_chatBot);
+    rootNode->MoveChatbotHere(std::move(&chatBot));
+    //ChatBot(rootNode);
+    //initalise with & is a refernece, this isn't initialised - a variable :. memory address
+    // not explicitly calling the things made in task 2 - move constructors
     
+    //ChatBot().SetRootNode();
+
     ////
     //// EOF STUDENT CODE
 }
