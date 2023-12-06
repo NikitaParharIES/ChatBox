@@ -62,12 +62,13 @@ ChatBot::ChatBot(const ChatBot& other){
 ChatBot::ChatBot(ChatBot&& other)noexcept{
     std::cout << "ChatBot Move Constructor" << std::endl;
     // r
+    std::exchange(_image, other._image);
+    std::exchange(_chatLogic, other._chatLogic);
+    std::exchange(_rootNode, other._rootNode);
     std::exchange(other._image, nullptr);
     std::exchange(other._chatLogic, nullptr);
     std::exchange(other._rootNode, nullptr);
-    std::exchange(_image, nullptr);
-    std::exchange(_chatLogic, nullptr);
-    std::exchange(_rootNode, nullptr);
+
     _chatLogic->SetChatbotHandle(this);
 }
 
@@ -79,9 +80,16 @@ ChatBot &ChatBot::operator=(const ChatBot& other){
 
 ChatBot &ChatBot::operator=(ChatBot&& other)noexcept{
         std::cout << "ChatBot Move Assignment Operator" << std::endl;
-        std::swap(_image, other._image);
-        std::swap(_chatLogic, other._chatLogic);
-        std::swap(_rootNode, other._rootNode);
+        // std::swap(_image, other._image);
+        // std::swap(_chatLogic, other._chatLogic);
+        // std::swap(_rootNode, other._rootNode);
+        // other._currentNode = nullptr;
+        // other._chatLogic = nullptr;
+        // other._rootNode = nullptr;
+        // other._image = NULL ;
+        std::exchange(_image, other._image);
+        std::exchange(_chatLogic, other._chatLogic);
+        std::exchange(_rootNode, other._rootNode);
         other._currentNode = nullptr;
         other._chatLogic = nullptr;
         other._rootNode = nullptr;

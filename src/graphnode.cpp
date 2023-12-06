@@ -13,7 +13,7 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
     //std::cout<<"delete _chatbox graphnode.cpp 41"<<std::endl;
-    //delete _chatBot; 
+    //delete &_chatBot; 
     //_chatBot = NULL;
 
 
