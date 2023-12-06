@@ -34,7 +34,7 @@ ChatLogic::~ChatLogic()
     ////
 
     // delete chatbot instance
-    delete _chatBot;
+    //delete _chatBot;
 
     // delete all nodes
     // smart pointer means it deletes if out of scope
@@ -170,6 +170,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             std::unique_ptr<GraphEdge> edge = std::make_unique<GraphEdge>(id);
                             edge->SetChildNode(childNode->get());
                             edge->SetParentNode(parentNode->get());
+                            _edges.push_back(edge.get());
 
                             // find all keywords for current node
                             AddAllTokensToElement("KEYWORD", tokens, *edge);
@@ -225,8 +226,10 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     //"this" is used to access the class ChatLogic as an instance via chatLogic
     ChatBot chatBot("../images/chatbot.png") ;
     // add chatbot to graph root node
+    this->SetChatbotHandle(&chatBot);
+    _chatBot->SetChatLogicHandle(this);
     _chatBot->SetRootNode(rootNode);
-    rootNode->MoveChatbotHere(std::move(&chatBot));
+    rootNode->MoveChatbotHere(chatBot);
     //ChatBot(rootNode);
     //initalise with & is a refernece, this isn't initialised - a variable :. memory address
     // not explicitly calling the things made in task 2 - move constructors
